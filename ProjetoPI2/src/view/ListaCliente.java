@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import view.ModifcaClienteView;
 import Controller.ClienteController;
 import Model.Cliente;
+import Utils.GerenciadorConexao;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ private TableRowSorter trsFiltro;
      */
     public ListaCliente() {
         initComponents();
-        this.LoadTable();
+        LoadTable();
     }
     
     
@@ -217,24 +218,28 @@ private TableRowSorter trsFiltro;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-     
-        if (tblClienteC.getRowCount() > 0) {
-            //Verifico se o usuário selecionou alguma linha (Primeira linha = 0)
-                
-            if (tblClienteC.getSelectedRow() >= 0) { 
-                int op = JOptionPane.showConfirmDialog(this,"Deseja modificar o cliente?","", WIDTH);
-                if(op == 0){
-                    int numeroLinha = tblClienteC.getSelectedRow();
-                    int salvarId = Integer.parseInt(tblClienteC.getModel().getValueAt(numeroLinha,0 ).toString());
-                    new ModifcaClienteView(salvarId).setVisible(true);
-                    this.dispose();
-                }
+   if(tblClienteC.getRowCount()>0)
+        {
+            //Resgato o número da linha pelo JTable
+            int numeroLinha = tblClienteC.getSelectedRow();
+            
+            //Resgato o ID (oculto) do cliente pelo JTableModel
+            int IDcliente = Integer.parseInt(tblClienteC.getModel().getValueAt(numeroLinha, 0).toString());
+            
+            //Realizo a exclusão do cliente pelo ID
+            if(ClienteController.excluir( IDcliente ))
+            {
+                this.LoadTable();
+                JOptionPane.showMessageDialog(this,"Cliente excluído da base de dados");
             }else{
-                JOptionPane.showMessageDialog(null, "Selecione um cliente!");
-            }             
-        }else{     
-            JOptionPane.showMessageDialog(null, "Não há clientes cadastrados");
+                JOptionPane.showMessageDialog(this,"Falha ao excluir o cliente!");
+            }
         }
+        else
+        {
+            JOptionPane.showMessageDialog(this,"Não há clientes para excluir!");
+        }
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -244,23 +249,27 @@ private TableRowSorter trsFiltro;
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
 
-        if(tblClienteC.getRowCount()>0){
-
-            if(tblClienteC.getSelectedRow()>=0){
-                int op = JOptionPane.showConfirmDialog(this,"Deseja deletar o cliente?","", WIDTH);
-                if(op == 0){
-                    int numeroLinha= tblClienteC.getSelectedRow(); //Salva o numero da linha do TABLE
-                    int IDcliente = Integer.parseInt(tblClienteC.getModel().getValueAt(numeroLinha, 0).toString()); // Resga o id
-                    ClienteController.excluir(IDcliente);
-                    this.LoadTable();
-
-                    JOptionPane.showMessageDialog(null,"Cliente deletado com sucesso");
-                }
+        if(tblClienteC.getRowCount()>0)
+        {
+            //Resgato o número da linha pelo JTable
+            int numeroLinha = tblClienteC.getSelectedRow();
+            
+            //Resgato o ID (oculto) do cliente pelo JTableModel
+            int IDcliente = Integer.parseInt(tblClienteC.getModel().getValueAt(numeroLinha, 0).toString());
+            
+            //Realizo a exclusão do cliente pelo ID
+            if (tblClienteC.getSelectedRow() >= 0)
+            {
+                ClienteController.excluir(IDcliente);
+                this.LoadTable();
+                JOptionPane.showMessageDialog(this,"Cliente excluído da base de dados");
             }else{
-                JOptionPane.showMessageDialog(null,"Selecione um cliente!" );
+                JOptionPane.showMessageDialog(this,"Falha ao excluir o cliente!");
             }
-        }else{
-            JOptionPane.showMessageDialog(null,"Não há clientes cadastrados");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this,"Não há clientes para excluir!");
         }
                
 
