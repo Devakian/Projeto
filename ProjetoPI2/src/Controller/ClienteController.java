@@ -57,7 +57,8 @@ public class ClienteController {
         ArrayList<String[]> listaClientes = new ArrayList<>();
         
         for (int i = 0; i < clientes.size(); i++) {
-            listaClientes.add(new String[]{String.valueOf(clientes.get(i).getId()),clientes.get(i).getNome(),clientes.get(i).getCPF()});
+            listaClientes.add(new String[]{String.valueOf(clientes.get(i).getId()), clientes.get(i).getNome(), clientes.get(i).getCPF(),
+                });
             
         }
         

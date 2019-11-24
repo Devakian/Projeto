@@ -95,7 +95,7 @@ public class ClienteDAO {
         
       public static boolean atualizar(Cliente p)
     {
-        boolean retorno = false;
+                boolean retorno = false;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
                 
@@ -105,7 +105,7 @@ public class ClienteDAO {
             //Obs: A classe GerenciadorConexao já carrega o Driver e define os parâmetros de conexão
             conexao = GerenciadorConexao.abrirConexao();
             
-            instrucaoSQL = conexao.prepareStatement("UPDATE cliente SET nome_cliente=?,cpf=?,data_nascimento=?,sexo=?,telefone=?,celular=?,email=?,rua=?,numero=?,complemento=?,cep=?,bairro=?,referencia=?,pais=?,cidade=?,uf=? WHERE id_cliente=?)"
+            instrucaoSQL = conexao.prepareStatement("UPDATE cliente SET (nome_cliente,cpf,data_nascimento,sexo,telefone,celular,email,rua,numero,complemento,cep,bairro,referencia,pais,cidade,uf) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id_cliente=?"
                                                     , Statement.RETURN_GENERATED_KEYS);  //Caso queira retornar o ID do cliente
             
             //Adiciono os parâmetros ao meu comando SQL
@@ -216,7 +216,7 @@ public class ClienteDAO {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null; 
         
-        ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
         
         try {
             
@@ -231,6 +231,24 @@ public class ClienteDAO {
                 c.setId(rs.getInt("id_cliente"));
                 c.setNome(rs.getString("nome_cliente"));
                 c.setCPF(rs.getString("cpf"));
+                c.setData(rs.getString("data_nascimento"));
+                c.setSexo(rs.getString("sexo"));
+                c.setTelefone(rs.getString("telefone"));                
+                c.setCelular(rs.getString("celular"));
+                c.setEmail(rs.getString("email"));
+                c.setRua(rs.getString("rua"));
+                c.setNumero(rs.getString("numero"));
+                c.setComplemento(rs.getString("complemento"));
+                c.setCep(rs.getString("cep"));
+                c.setBairro(rs.getString("bairro"));
+                c.setReferencia(rs.getString("referencia"));
+                c.setPais(rs.getString("pais"));
+                c.setCidade(rs.getString("cidade"));
+                c.setUf(rs.getString("uf"));
+                 
+                
+                
+
                 listaClientes.add(c);
             }
             

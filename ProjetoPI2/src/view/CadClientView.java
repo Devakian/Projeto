@@ -521,7 +521,7 @@ public class CadClientView extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         //String sexo= cBoxSexo.getSelectedItem().toString();
-         int opcao = JOptionPane.showConfirmDialog(null,"Deseja cadastrar cliente ?");
+        int opcao = JOptionPane.showConfirmDialog(null,"Deseja cadastrar cliente ?");
         
         if (opcao == 0) {
              

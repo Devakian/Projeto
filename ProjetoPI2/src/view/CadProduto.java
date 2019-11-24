@@ -5,7 +5,9 @@
  */
 package view;
 
+import BancoDAO.ProdutoDAO;
 import Controller.ProdutoController;
+import Model.Produto;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.ButtonModel;
@@ -276,12 +278,26 @@ public class CadProduto extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
        
 
+//        Produto p = new Produto();
+//        
+//        p.setModeloProduto(txtModelo.getText());
+//        p.setQuantidadeProduto(Integer.parseInt(txtQuantidade.getText()));
+//        p.setGeneroProduto(jCbGenero.getSelectedItem().toString());
+//        p.setMarcaProduto(jCbMarca.getSelectedItem().toString());
+//        p.setPrecoProduto(Double.parseDouble(txtPreco.getText()));
+//        p.setDescricaoProduto(txtDescricao.getText());
+//        p.setTamanhoProduto(jCbTamanho.getSelectedItem().toString());
+//        p.setCategoriaProduto(jCbCategoria.getSelectedItem().toString());
+//        ProdutoDAO.salvarProduto(p);
+//        
+//        new telaProdutos().setVisible(true);
+//        this.dispose();
         
         String valorUnitario = txtPreco.getText();
         String quantidade = txtQuantidade.getText();
-
-        
-        
+//
+//        
+//        
         if(ProdutoController.salvar(txtNome.getText(),txtModelo.getText(),Integer.parseInt(quantidade),jCbMarca.getSelectedItem().toString(),
                 jCbCategoria.getSelectedItem().toString(),jCbGenero.getSelectedItem().toString(),jCbTamanho.getSelectedItem().toString(),Double.parseDouble(valorUnitario),txtDescricao.getText()))
                 {
