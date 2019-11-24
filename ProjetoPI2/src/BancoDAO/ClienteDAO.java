@@ -105,7 +105,7 @@ public class ClienteDAO {
             //Obs: A classe GerenciadorConexao já carrega o Driver e define os parâmetros de conexão
             conexao = GerenciadorConexao.abrirConexao();
             
-            instrucaoSQL = conexao.prepareStatement("UPDATE cliente SET (nome_cliente,cpf,data_nascimento,sexo,telefone,celular,email,rua,numero,complemento,cep,bairro,referencia,pais,cidade,uf) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id_cliente=?"
+            instrucaoSQL = conexao.prepareStatement("UPDATE cliente SET nome_cliente=?,cpf=?,data_nascimento=?,sexo=?,telefone=?,celular=?,email=?,rua=?,numero=?,complemento=?,cep=?,bairro=?,referencia=?,pais=?,cidade=?,uf=? WHERE id_cliente=?"
                                                     , Statement.RETURN_GENERATED_KEYS);  //Caso queira retornar o ID do cliente
             
             //Adiciono os parâmetros ao meu comando SQL
@@ -137,9 +137,6 @@ public class ClienteDAO {
                 ResultSet generatedKeys = instrucaoSQL.getGeneratedKeys(); //Recupero o ID do cliente
                 if (generatedKeys.next()) {
                         p.setId(generatedKeys.getInt(1));
-                    }
-                    else {
-                        throw new SQLException("Falha ao obter o ID do cliente.");
                     }
             }
             else{

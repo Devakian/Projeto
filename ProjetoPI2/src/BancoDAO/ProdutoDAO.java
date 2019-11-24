@@ -82,8 +82,66 @@ public class ProdutoDAO {
     }
 
     public static boolean atualizarProduto(Produto p) {
-        //Simulo um  UPDATE no banco de dados (UPDATE TabelaXYZ SET...)
-        return SimulaDB.getInstance().AtualizarProduto(p);
+        boolean retorno = false;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+                
+        try {
+            
+            //Tenta estabeler a conexão com o SGBD e cria comando a ser executado conexão
+            //Obs: A classe GerenciadorConexao já carrega o Driver e define os parâmetros de conexão
+            conexao = GerenciadorConexao.abrirConexao();
+            
+            instrucaoSQL = conexao.prepareStatement("UPDATE Produto SET nomeProduto=?,quantidadeProduto=?,marcaProduto=?,categoriaProduto=?,generoProduto=?,tamanhoProduto=?,precoProduto=?,descricaoProduto=? WHERE (idProduto = ?)"
+                                                    , Statement.RETURN_GENERATED_KEYS);  //Caso queira retornar o ID do cliente
+            
+            //Adiciono os parâmetros ao meu comando SQL
+            
+            instrucaoSQL.setString(1, p.getModeloProduto());
+            instrucaoSQL.setInt(2, p.getQuantidadeProduto());
+            instrucaoSQL.setString(3, p.getMarcaProduto());
+            instrucaoSQL.setString(4, p.getCategoriaProduto());
+            instrucaoSQL.setString(5, p.getGeneroProduto());
+            instrucaoSQL.setString(6, p.getTamanhoProduto());
+            instrucaoSQL.setDouble(7, p.getPrecoProduto());
+            instrucaoSQL.setString(8, p.getDescricaoProduto());
+            instrucaoSQL.setInt(9, p.getIdProduto());
+            
+                        
+            int linhasAfetadas = instrucaoSQL.executeUpdate();
+            
+            if(linhasAfetadas>0)
+            {
+                retorno = true;
+                
+                ResultSet generatedKeys = instrucaoSQL.getGeneratedKeys(); //Recupero o ID do cliente
+                if (generatedKeys.next()) {
+                        p.setIdProduto(generatedKeys.getInt(1));
+                    }
+
+            }
+            else{
+                retorno = false;
+            }
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            retorno = false;
+        } finally{
+            
+            //Libero os recursos da memória
+            try {
+                if(instrucaoSQL!=null)
+                    instrucaoSQL.close();
+                
+                GerenciadorConexao.fecharConexao();
+                
+              } catch (SQLException ex) {
+             }
+        }
+        
+        return retorno;
+        
     }
 
     public static boolean excluirProduto(int pID) 

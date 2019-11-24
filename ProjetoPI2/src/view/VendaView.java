@@ -4,59 +4,67 @@
  * and open the template in the editor.
  */
 package view;
+
+import BancoDAO.ProdutoDAO;
 import Controller.ClienteController;
 import Controller.ProdutoController;
 import Model.Cliente;
 import Model.Produto;
+import Utils.GerenciadorConexao;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Administrator
  */
 public class VendaView extends javax.swing.JFrame {
+
     private String CPF;
     private String Modelo;
     private String Tamanho;
-    
-    
-    public void carregaTenis(String Modelo, String Tamanho){
+
+    public void carregaTenis(String Modelo, String Tamanho) {
         ArrayList<Produto> listaP = new ArrayList<>();
         listaP = ProdutoController.carregarProdutos();
-        
-        for (Produto produto : listaP) {
-            if (produto.getModeloProduto().equals(Modelo)&& produto.getTamanhoProduto().equals(Tamanho)){
-                txtMarca.setText(String.valueOf(produto.getMarcaProduto()));
-                txtIDProdutos.setText(String.valueOf(produto.getIdProduto()));
-                txtGenero.setText(String.valueOf(produto.getGeneroProduto()));
-                txtPreco.setText(String.valueOf(produto.getPrecoProduto()));
-                
-            } else{
-                JOptionPane.showMessageDialog(null, "Produto Inexistente");
+
+        for (Produto p : listaP) {
+            if (p.getModeloProduto().equals(Modelo) && p.getTamanhoProduto().equals(Tamanho)) {
+                txtMarca.setText(String.valueOf(p.getMarcaProduto()));
+                txtIDProdutos.setText(String.valueOf(p.getIdProduto()));
+                txtGenero.setText(String.valueOf(p.getGeneroProduto()));
+                txtPreco.setText(String.valueOf(p.getPrecoProduto()));
+
             }
-            
-            }
+
+        }
     }
-    
-    public void carregaCliente(String CPF){
+
+    public void carregaCliente(String CPF) {
+
         ArrayList<Cliente> lista = new ArrayList<>();
         lista = ClienteController.carregarClientes();
-        
+
         for (Cliente c : lista) {
-            if (c.getCPF().equals(CPF)){
+            if (c.getCPF().equals(CPF)) {
                 txtIDCliente.setText(String.valueOf(c.getId()));
                 txtNomeCliente.setText(String.valueOf(c.getNome()));
-            } else{
-                JOptionPane.showMessageDialog(null, "Cliente Inexistente");
+
             }
-        
-            }
+        }
+
     }
-    
-        
+
     public VendaView() {
         initComponents();
+
     }
 
     /**
@@ -233,9 +241,15 @@ public class VendaView extends javax.swing.JFrame {
         txtGenero.setEditable(false);
         txtGenero.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
 
-        jblNomeCliente2.setText("ID Produto");
+        jblNomeCliente2.setText("ID Produto:");
+        jblNomeCliente2.setPreferredSize(new java.awt.Dimension(61, 16));
 
         txtIDProdutos.setEditable(false);
+        txtIDProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDProdutosActionPerformed(evt);
+            }
+        });
 
         try {
             txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -313,16 +327,16 @@ public class VendaView extends javax.swing.JFrame {
                                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                                     .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGap(18, 18, 18)
-                                                    .addComponent(jblNomeCliente2)
+                                                    .addComponent(jblNomeCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(txtIDProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(txtIDProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                                     .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGap(18, 18, 18)
                                                     .addComponent(jlbTamanho)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                     .addComponent(cboxTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGap(0, 0, Short.MAX_VALUE))))))
+                                            .addGap(0, 8, Short.MAX_VALUE))))))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -399,7 +413,7 @@ public class VendaView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jblNomeCliente2)
+                            .addComponent(jblNomeCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtIDProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -454,24 +468,23 @@ public class VendaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
-        
+
     }//GEN-LAST:event_txtPrecoActionPerformed
 
     private void JbtnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnFinalizarActionPerformed
-      
-        int opcao =  JOptionPane.showConfirmDialog(this, "Deseja finalizar e salvar? ", "Finalizar", WIDTH);
-               
-                if (opcao ==0) {
-                JOptionPane.showMessageDialog(null, "Salvo"); 
-                this.dispose();               
-                }
-                else{
-             JOptionPane.showMessageDialog(this, "Falha ao finalizar", "Error", JOptionPane.ERROR_MESSAGE);
+
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja finalizar e salvar? ", "Finalizar", WIDTH);
+
+        if (opcao == 0) {
+            JOptionPane.showMessageDialog(null, "Salvo");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Falha ao finalizar", "Error", JOptionPane.ERROR_MESSAGE);
         }      // TODO add your handling code here:
     }//GEN-LAST:event_JbtnFinalizarActionPerformed
 
     private void JbtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnCancelarActionPerformed
-    this.dispose();
+        this.dispose();
     }//GEN-LAST:event_JbtnCancelarActionPerformed
 
     private void txtValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTotalActionPerformed
@@ -483,12 +496,17 @@ public class VendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnCarrinho1ActionPerformed
 
     private void txtBuscarCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarCPFActionPerformed
-        CPF = txtCPF.getText();
-        carregaCliente(CPF);
+        if (txtCPF.equals(null)) {
+            System.out.println("Insira o CPF");
+        } else {
+            CPF = txtCPF.getText();
+            carregaCliente(CPF);
+
+        }
     }//GEN-LAST:event_txtBuscarCPFActionPerformed
 
     private void txtBuscarModeloTenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarModeloTenisActionPerformed
-         Modelo = txtModeloTenis.getText();
+        Modelo = txtModeloTenis.getText();
         Tamanho = String.valueOf(cboxTamanho.getSelectedItem());
         carregaTenis(Modelo, Tamanho);
     }//GEN-LAST:event_txtBuscarModeloTenisActionPerformed
@@ -498,7 +516,7 @@ public class VendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQuantidadeActionPerformed
 
     private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
-     
+
     }//GEN-LAST:event_txtCPFActionPerformed
 
     private void txtCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPFKeyTyped
@@ -508,28 +526,32 @@ public class VendaView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não é permitido essa tecla");
             return;
         }
-            char c = evt.getKeyChar();
-        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && (c != '.' )) {
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && (c != '.')) {
             evt.consume();
-           JOptionPane.showMessageDialog(this, "Não é permitido letras e caracteres!");;
+            JOptionPane.showMessageDialog(this, "Não é permitido letras e caracteres!");;
             return;
         }    // TODO add your handling code here:
     }//GEN-LAST:event_txtCPFKeyTyped
 
     private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
-          if (evt.getKeyChar() == '@') {
+        if (evt.getKeyChar() == '@') {
 
             evt.consume();
             JOptionPane.showMessageDialog(null, "Não é permitido essa tecla");
             return;
         }
-            char c = evt.getKeyChar();
-        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && (c != '.' )) {
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && (c != '.')) {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Não é permitido letras e caracteres!");;
             return;
         }
     }//GEN-LAST:event_txtQuantidadeKeyTyped
+
+    private void txtIDProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDProdutosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDProdutosActionPerformed
 
     /**
      * @param args the command line arguments

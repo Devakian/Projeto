@@ -40,7 +40,6 @@ public class CadProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jlbNome = new javax.swing.JLabel();
         jlbPreco1 = new javax.swing.JLabel();
         JlbQuantidade = new javax.swing.JLabel();
         jlbMarca = new javax.swing.JLabel();
@@ -54,7 +53,6 @@ public class CadProduto extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtQuantidade = new javax.swing.JFormattedTextField();
-        txtNome = new javax.swing.JTextField();
         jCbMarca = new javax.swing.JComboBox<>();
         jCbCategoria = new javax.swing.JComboBox<>();
         jblGenero = new javax.swing.JLabel();
@@ -64,9 +62,6 @@ public class CadProduto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Produtos");
         setResizable(false);
-
-        jlbNome.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jlbNome.setText("Nome:");
 
         jlbPreco1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jlbPreco1.setText("Modelo:");
@@ -129,8 +124,6 @@ public class CadProduto extends javax.swing.JFrame {
             }
         });
 
-        txtNome.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-
         jCbMarca.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jCbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- ", "Adidas", "Nike" }));
 
@@ -163,7 +156,6 @@ public class CadProduto extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlbPreco1)
                             .addComponent(jlbMarca)
-                            .addComponent(jlbNome)
                             .addComponent(jlbTamanho)
                             .addComponent(jblGenero)
                             .addComponent(jlbPreco))
@@ -173,7 +165,7 @@ public class CadProduto extends javax.swing.JFrame {
                                 .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,7 +180,6 @@ public class CadProduto extends javax.swing.JFrame {
                                                 .addComponent(JlbQuantidade)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(txtNome)
                                     .addComponent(jCbTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jCbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -196,21 +187,13 @@ public class CadProduto extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlbNome)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlbPreco1)
-                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JlbQuantidade)
-                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGap(61, 61, 61)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbPreco1)
+                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JlbQuantidade)
+                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCategoria)
                     .addComponent(jCbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,7 +216,7 @@ public class CadProduto extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jlbDescricao)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,7 +281,7 @@ public class CadProduto extends javax.swing.JFrame {
 //
 //        
 //        
-        if(ProdutoController.salvar(txtNome.getText(),txtModelo.getText(),Integer.parseInt(quantidade),jCbMarca.getSelectedItem().toString(),
+        if(ProdutoController.salvar(txtModelo.getText(),Integer.parseInt(quantidade),jCbMarca.getSelectedItem().toString(),
                 jCbCategoria.getSelectedItem().toString(),jCbGenero.getSelectedItem().toString(),jCbTamanho.getSelectedItem().toString(),Double.parseDouble(valorUnitario),txtDescricao.getText()))
                 {
                     //Recarrego a tabela com os dados resgatados do banco de dados                   
@@ -378,13 +361,11 @@ public class CadProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jlbCategoria;
     private javax.swing.JLabel jlbDescricao;
     private javax.swing.JLabel jlbMarca;
-    private javax.swing.JLabel jlbNome;
     private javax.swing.JLabel jlbPreco;
     private javax.swing.JLabel jlbPreco1;
     private javax.swing.JLabel jlbTamanho;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtModelo;
-    private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPreco;
     private javax.swing.JFormattedTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables

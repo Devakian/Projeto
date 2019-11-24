@@ -220,21 +220,22 @@ public class ListaCliente extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (tblClienteC.getRowCount() > 0) {
+
+            //Realizo a exclusão do cliente pelo ID
+            if (tblClienteC.getSelectedRow() >= 0) {
             //Resgato o número da linha pelo JTable
             int numeroLinha = tblClienteC.getSelectedRow();
 
             //Resgato o ID (oculto) do cliente pelo JTableModel
             int IDcliente = Integer.parseInt(tblClienteC.getModel().getValueAt(numeroLinha, 0).toString());
-
-            //Realizo a exclusão do cliente pelo ID
-            if (ClienteController.excluir(IDcliente)) {
+                new ModifcaClienteView(IDcliente).setVisible(true);
                 this.LoadTable();
-                JOptionPane.showMessageDialog(this, "Cliente excluído da base de dados");
+                
             } else {
-                JOptionPane.showMessageDialog(this, "Falha ao excluir o cliente!");
+            JOptionPane.showMessageDialog(this, "Selecione um Cliente");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Não há clientes para excluir!");
+                JOptionPane.showMessageDialog(this, "Falha ao caregar o cliente!");
         }
 
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -247,14 +248,14 @@ public class ListaCliente extends javax.swing.JFrame {
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
 
         if (tblClienteC.getRowCount() > 0) {
+
+            //Realizo a exclusão do cliente pelo ID
+            if (tblClienteC.getSelectedRow() >= 0) {
             //Resgato o número da linha pelo JTable
             int numeroLinha = tblClienteC.getSelectedRow();
 
             //Resgato o ID (oculto) do cliente pelo JTableModel
             int IDcliente = Integer.parseInt(tblClienteC.getModel().getValueAt(numeroLinha, 0).toString());
-
-            //Realizo a exclusão do cliente pelo ID
-            if (tblClienteC.getSelectedRow() >= 0) {
                 ClienteController.excluir(IDcliente);
                 this.LoadTable();
                 JOptionPane.showMessageDialog(this, "Cliente excluído da base de dados");
